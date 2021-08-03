@@ -117,8 +117,11 @@ SidecarIdentityName=$(echo $ColonyMgmtRG"-sidecar-identity")
 
 echo -e "Creating AD application for CloudShell Colony"
 AppKey=$(az ad sp create-for-rbac -n $AppName --role Contributor | jq -r '.password') ||  quit_on_err "The user that runs the script should be an Owner."
+echo -e "After appkey"
 AppId=$(az ad app list --display-name $AppName | jq '.[0].appId' | tr -d \")
+echo -e "After appid"
 az ad sp credential reset -n $AppName --password $AppKey --end-date '2299-12-31'
+echo -e "After reset"
 
 
 echo -e "Configuring access to Azure API"
