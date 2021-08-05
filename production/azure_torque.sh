@@ -119,7 +119,7 @@ SidecarIdentityName=$(echo $TorqueMgmtRG"-sidecar-identity")
 
 
 echo -e "Creating AD application for Torque"
-AppKey=$(az ad sp create-for-rbac -n $AppName --role Contributer | jq -r '.password') ||  quit_on_err "The user that runs the script should be an Owner."
+AppKey=$(az ad sp create-for-rbac -n $AppName --role Contributor | jq -r '.password') ||  quit_on_err "The user that runs the script should be an Owner."
 AppId=$(az ad app list --display-name $AppName | jq '.[0].appId' | tr -d \")
 az ad sp credential reset -n $AppName --password $AppKey --end-date '2299-12-31'
 
